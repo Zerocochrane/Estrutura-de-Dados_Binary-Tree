@@ -34,15 +34,31 @@ void print2DUtil(Arvore *t, int space) {
     print2DUtil(t->sae, space); 
 }  
 
-void showTree(Arvore* t){
+void impressaoPreOrdem(Arvore* t){
 
-    printf("<");
     if(!treeIsEmpty(t)){
         printf("%d ", t->info);
-        showTree(t->sae);
-        showTree(t->sad);
+        impressaoPreOrdem(t->sae);
+        impressaoPreOrdem(t->sad);
   }
-  printf(">");
+}
+
+void impressaoPosOrdem(Arvore* t){
+
+    if(!treeIsEmpty(t)){
+        impressaoPosOrdem(t->sae);
+        printf("%d ", t->info);
+        impressaoPosOrdem(t->sad);
+  }
+}
+
+void impressaoInOrdem(Arvore* t){
+
+    if(!treeIsEmpty(t)){
+        impressaoInOrdem(t->sae);
+        impressaoInOrdem(t->sad);
+        printf("%d ", t->info);
+  }
 }
 
 void insertTree(Arvore** t, int info){
@@ -76,7 +92,6 @@ int main(){
         printf("\nDigite 1 para inserir na Arvore;");
         printf("\nDigite 2 para imprimir a Arvore;");
         printf("\nDigite 3 para sair do programa.");
-        //Inserindo uma linha de teste//
         printf("\nEscolha: ");
         scanf("%d", &escolha);
         switch (escolha){
@@ -87,7 +102,21 @@ int main(){
                 break;
         
             case 2:
+                printf("\n\n\n--- Imprimindo a Arvore de forma 2D ---\n");
                 print2DUtil(t, 0);
+                printf("\n--- Final da Impressao da Arvore ---");
+
+                printf("\n\n\n--- Imprimindo a Arvore em pre-ordem ---\n");
+                impressaoPosOrdem(t);
+                printf("\n--- Final da Impressao da Arvore ---");
+
+                printf("\n\n\n--- Imprimindo a Arvore de em pos-ordem ---\n");
+                impressaoPreOrdem(t);
+                printf("\n--- Final da Impressao da Arvore ---");
+
+                printf("\n\n\n--- Imprimindo a Arvore de em in-ordem ---\n");
+                impressaoInOrdem(t);
+                printf("\n--- Final da Impressao da Arvore ---");
                 break;
         
             case 3:
