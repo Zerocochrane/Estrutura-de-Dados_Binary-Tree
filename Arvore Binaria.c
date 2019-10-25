@@ -76,6 +76,7 @@ int main(){
         printf("\nDigite 1 para inserir na Arvore;");
         printf("\nDigite 2 para imprimir a Arvore;");
         printf("\nDigite 3 para sair do programa.");
+        //Inserindo uma linha de teste//
         printf("\nEscolha: ");
         scanf("%d", &escolha);
         switch (escolha){
