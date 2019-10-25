@@ -84,21 +84,36 @@ int isInTree(Arvore* t, int info){
     return t->info==info || isInTree(t->sae, info) || isInTree(t->sad, info);
 }
 
+void clearTree(Arvore* t){
+    if(t!=NULL){
+        clearTree(t->sae);
+        clearTree(t->sad);
+        free(t);
+    }else{
+        return;
+    }
+}
+
 int main(){
-    int numero, x=1, escolha;
+    int numero, x=1, escolha, busca;
     Arvore* t = createTree();
     
     while( x==1){
-        printf("\nDigite 1 para inserir na Arvore;");
+        printf("\nDigite 1 para popular a  Arvore;");
         printf("\nDigite 2 para imprimir a Arvore;");
-        printf("\nDigite 3 para sair do programa.");
+        printf("\nDigite 3 para buscar na arvore;");
+        printf("\nDigite 4 para sair do programa.");
         printf("\nEscolha: ");
         scanf("%d", &escolha);
         switch (escolha){
             case 1:
-                printf("\nDigite o numero que sera inserido na Arvore: ");
-                scanf("%d", &numero);
-                insertTree(&t, numero);
+                insertTree(&t, 3);
+                insertTree(&t, 4);
+                insertTree(&t, 5);
+                insertTree(&t, 6);
+                insertTree(&t, 1);
+                insertTree(&t, 2);
+                insertTree(&t, 0);
                 break;
         
             case 2:
@@ -120,6 +135,16 @@ int main(){
                 break;
         
             case 3:
+                printf("\nDigite o valor que sera buscado: ");
+                scanf("%d", &busca);
+                if(isInTree(t, busca)){
+                    printf("\nO numero %d esta na arvore.", busca);
+                }else{
+                    printf("\nO numero %d nao esta na arvore.", busca);
+                }
+                break;
+            
+            case 4:
                 x=2;
                 break;
         
@@ -127,8 +152,12 @@ int main(){
                 break;
         }
     }
-   
-  
-    free(t);
+    
+    clearTree(t);
+    if(treeIsEmpty(t)){
+        printf("A arvore esta vazia");
+    }else{
+        printf("A arvore nao esta vazia");
+    }
     return 0;
 }
