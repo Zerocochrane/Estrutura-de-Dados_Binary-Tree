@@ -94,6 +94,31 @@ void clearTree(Arvore* t){
     }
 }
 
+int maxDepth(Arvore* t)  
+{ 
+   if (t==NULL)  
+       return 0; 
+   else 
+   { 
+       int lDepth = maxDepth(t->sae); 
+       int rDepth = maxDepth(t->sad); 
+  
+       if (lDepth > rDepth)  
+           return(lDepth+1); 
+       else return(rDepth+1); 
+   } 
+}
+
+ int getLeafCount( Arvore* t) 
+{ 
+  if(t == NULL)        
+    return 0; 
+  if(t->sae == NULL && t->sad==NULL)       
+    return 1;             
+  else 
+    return getLeafCount(t->sae) + getLeafCount(t->sad);       
+} 
+
 int main(){
     int numero, x=1, escolha, busca;
     Arvore* t = createTree();
@@ -102,7 +127,9 @@ int main(){
         printf("\nDigite 1 para popular a  Arvore;");
         printf("\nDigite 2 para imprimir a Arvore;");
         printf("\nDigite 3 para buscar na arvore;");
-        printf("\nDigite 4 para sair do programa.");
+        printf("\nDigite 4 para ver a altura da Arvore.");
+        printf("\nDigite 5 para ver quantas folhas estao na Arvore.");
+        printf("\nDigite 6 para sair do programa.");
         printf("\nEscolha: ");
         scanf("%d", &escolha);
         switch (escolha){
@@ -143,8 +170,16 @@ int main(){
                     printf("\nO numero %d nao esta na arvore.", busca);
                 }
                 break;
-            
+
             case 4:
+                printf("\nA altura da Arvore eh: %d\n", maxDepth(t) - 1);
+                break;
+            
+            case 5:
+                printf("\nO numero de folhas da Arvore eh: %d\n", getLeafCount(t));
+                break;
+
+            case 6:
                 x=2;
                 break;
         
@@ -155,9 +190,9 @@ int main(){
     
     clearTree(t);
     if(treeIsEmpty(t)){
-        printf("A arvore esta vazia");
-    }else{
         printf("A arvore nao esta vazia");
+    }else{
+        printf("A arvore esta vazia");
     }
     return 0;
 }
